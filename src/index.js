@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import logoImg from './assets/logo.png';
+import race from './assets/race.png';
 
 class MyGame extends Phaser.Scene
 {
@@ -10,21 +11,19 @@ class MyGame extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('logo', logoImg);
+        this.load.image('race', race);
     }
-      
+
     create ()
     {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
+        // const logo = this.add.image(500, 400, 'race');
+        this.tileSprite = this.add.tileSprite(400, 300, 800, 600, 'race')
+        // this.tileSprite.autoScroll(0, 100)
+
+    }
+
+    update(){
+         this.tileSprite.tilePositionY += 2;
     }
 }
 
