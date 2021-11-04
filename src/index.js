@@ -50,15 +50,15 @@ class MyGame extends Phaser.Scene
 
         this.raceTimer = this.add.text(200, 200, `${this.time.now /1000}`)
 
-        // this.countdown = new Timer(this, this.raceTimer)
-        // this.countdown.start(45000)
+
 
         this.physics.add.existing(this.greenCar)
         this.physics.add.collider(this.raceCar, this.greenCar, () => {
-            // this.greenCar.destroy()
+            this.physics.pause()
+            this.raceTimer.visible = false
+            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
 
-            console.log(this.time.now)
-            this.greenCar.setPosition(250,250)
+            this.greenCar.destroy()
             console.log('destroyed')
 
 
@@ -77,16 +77,15 @@ class MyGame extends Phaser.Scene
 
 
     update(){
+        if(this.raceTimer){
         this.timer =  this.time.now /1000
-
-             this.raceTimer.text =  this.timer
-        // this.changeTime()
-        // this.raceTimer = this.add.text(200, 200, `${this.time.now /1000}`)
+        this.raceTimer.text =  this.timer
+        }
 
 
          this.tileSprite.tilePositionY -= 2;
 
-         const body = this.raceCar.body
+
 
 
     if(this.cursors.left.isDown){
@@ -106,7 +105,7 @@ class MyGame extends Phaser.Scene
 
     }
 
-    // this.raceCar1.y += 2;
+
 
     if (this.greenCar.y > 565)
     {
@@ -120,10 +119,6 @@ class MyGame extends Phaser.Scene
     }
     }
 
-    // changeTime(){
-    //     this.timer +=  1
-    //     this.raceTimer.text =  this.timer
-    // }
 
 
 }
