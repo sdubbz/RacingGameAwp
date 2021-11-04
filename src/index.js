@@ -3,15 +3,26 @@ import logoImg from './assets/logo.png';
 import race from './assets/race.png';
 import car from './assets/car.jpeg';
 import greenCar from './assets/greenCar.png';
+import Timer from './timer';
 
-var raceCar
+
+
+
+
+
+
 
 class MyGame extends Phaser.Scene
 {
+
+
+
+
     constructor ()
     {
         super();
     }
+
 
     preload ()
     {
@@ -22,6 +33,7 @@ class MyGame extends Phaser.Scene
 
     create ()
     {
+
         this.tileSprite = this.add.tileSprite(400, 300, 850, 800, 'race')
 
         this.raceCar = this.add.sprite(400, 450, 'car' )
@@ -34,14 +46,22 @@ class MyGame extends Phaser.Scene
         this.greenCar.setScale(.08)
         this.greenCar.setAngle(-270)
 
+
+
+        this.raceTimer = this.add.text(200, 200, `${this.time.now /1000}`)
+
+        // this.countdown = new Timer(this, this.raceTimer)
+        // this.countdown.start(45000)
+
         this.physics.add.existing(this.greenCar)
-
-        // this.raceCar.body.onCollide = new Phaser.Signal();
-        // this.raceCar.body.onCollide.add(this.hitCar, this);
-
         this.physics.add.collider(this.raceCar, this.greenCar, () => {
-            this.greenCar.destroy()
+            // this.greenCar.destroy()
+
+            console.log(this.time.now)
+            this.greenCar.setPosition(250,250)
             console.log('destroyed')
+
+
 
         })
 
@@ -51,9 +71,18 @@ class MyGame extends Phaser.Scene
         this.cursors = this.input.keyboard.createCursorKeys()
 
 
+
     }
 
+
+
     update(){
+        this.timer =  this.time.now /1000
+
+             this.raceTimer.text =  this.timer
+        // this.changeTime()
+        // this.raceTimer = this.add.text(200, 200, `${this.time.now /1000}`)
+
 
          this.tileSprite.tilePositionY -= 2;
 
@@ -83,7 +112,18 @@ class MyGame extends Phaser.Scene
     {
         this.greenCar.y = -450;
     }
+
+
+    if(!this.greenCar){
+        console.log('yesssiiir')
+        this.greenCar.setPosition(250,250)
     }
+    }
+
+    // changeTime(){
+    //     this.timer +=  1
+    //     this.raceTimer.text =  this.timer
+    // }
 
 
 }
@@ -101,6 +141,7 @@ const config = {
             debug: true
         }
     }
+
 };
 
 const game = new Phaser.Game(config);
