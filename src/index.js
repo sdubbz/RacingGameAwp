@@ -3,6 +3,9 @@ import logoImg from './assets/logo.png';
 import race from './assets/race.png';
 import car from './assets/car.jpeg';
 import greenCar from './assets/greenCar.png';
+import truck from './assets/truck.png'
+import blueCar from './assets/blueCar.png'
+import redCar from './assets/redCar.png'
 import Timer from './timer';
 
 
@@ -29,6 +32,9 @@ class MyGame extends Phaser.Scene
         this.load.image('race', race);
         this.load.image('car', car)
         this.load.image('greenCar', greenCar)
+        this.load.image('truck', truck)
+        this.load.image('blueCar', blueCar)
+        this.load.image('redCar', redCar)
     }
 
     create ()
@@ -37,14 +43,26 @@ class MyGame extends Phaser.Scene
         this.tileSprite = this.add.tileSprite(400, 300, 850, 800, 'race')
 
         this.raceCar = this.add.sprite(400, 450, 'car' )
-        this.raceCar.setScale(.05)
+        this.raceCar.setScale(.07)
         this.physics.add.existing(this.raceCar, true)
 
 
 
-        this.greenCar = this.add.sprite(400, 250, 'greenCar' )
-        this.greenCar.setScale(.08)
-        this.greenCar.setAngle(-270)
+        this.greenCar = this.add.sprite(480, 650, 'greenCar' )
+        this.greenCar.setScale(.15)
+        this.physics.add.existing(this.greenCar)
+
+        this.truck = this.add.sprite(225, 1050, 'truck' )
+        this.truck.setScale(.17)
+        this.physics.add.existing(this.truck)
+
+        this.blueCar = this.add.sprite(350, 1750, 'blueCar' )
+        this.blueCar.setScale(.5)
+        this.physics.add.existing(this.blueCar)
+
+        this.redCar = this.add.sprite(590, 850, 'redCar' )
+        this.redCar.setScale(.15)
+        this.physics.add.existing(this.redCar)
 
 
 
@@ -52,13 +70,48 @@ class MyGame extends Phaser.Scene
 
 
 
-        this.physics.add.existing(this.greenCar)
         this.physics.add.collider(this.raceCar, this.greenCar, () => {
             this.physics.pause()
             this.raceTimer.visible = false
             this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
 
             this.greenCar.destroy()
+            console.log('destroyed')
+
+
+
+        })
+
+        this.physics.add.collider(this.raceCar, this.truck, () => {
+            this.physics.pause()
+            this.raceTimer.visible = false
+            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
+
+            this.truck.destroy()
+            console.log('destroyed')
+
+
+
+        })
+
+        this.physics.add.collider(this.raceCar, this.blueCar, () => {
+            this.physics.pause()
+            this.raceTimer.visible = false
+            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
+
+            this.blueCar.destroy()
+            console.log('destroyed')
+
+
+
+        })
+
+        this.physics.add.collider(this.raceCar, this.redCar, () => {
+            this.physics.pause()
+            this.raceTimer.visible = false
+            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
+
+            this.redCar.destroy()
             console.log('destroyed')
 
 
@@ -113,10 +166,25 @@ class MyGame extends Phaser.Scene
     }
 
 
-    if(!this.greenCar){
-        console.log('yesssiiir')
-        this.greenCar.setPosition(250,250)
+
+
+    if (this.truck.y > 765)
+    {
+        this.truck.y = -850;
     }
+
+    if (this.blueCar.y > 965)
+    {
+        this.blueCar.y = -1050;
+    }
+
+    if (this.redCar.y > 1565)
+    {
+        this.redCar.y = -1550;
+    }
+
+
+
     }
 
 
