@@ -1,12 +1,12 @@
 import Phaser, { Physics } from 'phaser';
-import logoImg from './assets/logo.png';
+
 import race from './assets/race.png';
 import car from './assets/car.jpeg';
 import greenCar from './assets/greenCar.png';
 import truck from './assets/truck.png'
 import blueCar from './assets/blueCar.png'
 import redCar from './assets/redCar.png'
-import Timer from './timer';
+
 
 
 
@@ -73,7 +73,7 @@ class MyGame extends Phaser.Scene
         this.physics.add.collider(this.raceCar, this.greenCar, () => {
             this.physics.pause()
             this.raceTimer.visible = false
-            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
+            this.add.text(200,200, `GAME OVER , SCORE : ${Math.floor(this.time.now /1000, -2)} seconds`)
 
             this.greenCar.destroy()
             console.log('destroyed')
@@ -85,7 +85,7 @@ class MyGame extends Phaser.Scene
         this.physics.add.collider(this.raceCar, this.truck, () => {
             this.physics.pause()
             this.raceTimer.visible = false
-            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
+            this.add.text(200,200, `GAME OVER , SCORE : ${Math.floor(this.time.now /1000, -2)} seconds`)
 
             this.truck.destroy()
             console.log('destroyed')
@@ -97,7 +97,7 @@ class MyGame extends Phaser.Scene
         this.physics.add.collider(this.raceCar, this.blueCar, () => {
             this.physics.pause()
             this.raceTimer.visible = false
-            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
+            this.add.text(200,200, `GAME OVER , SCORE : ${Math.floor(this.time.now /1000, -2)} seconds`)
 
             this.blueCar.destroy()
             console.log('destroyed')
@@ -109,7 +109,7 @@ class MyGame extends Phaser.Scene
         this.physics.add.collider(this.raceCar, this.redCar, () => {
             this.physics.pause()
             this.raceTimer.visible = false
-            this.add.text(200,200, `GAME OVER , SCORE : ${this.time.now / 1000}`)
+            this.add.text(200,200, `GAME OVER , SCORE : ${Math.floor(this.time.now /1000, -2)} seconds`)
 
             this.redCar.destroy()
             console.log('destroyed')
@@ -118,11 +118,7 @@ class MyGame extends Phaser.Scene
 
         })
 
-
-
-
         this.cursors = this.input.keyboard.createCursorKeys()
-
 
 
     }
@@ -131,15 +127,11 @@ class MyGame extends Phaser.Scene
 
     update(){
         if(this.raceTimer){
-        this.timer =  this.time.now /1000
+        this.timer =  `${Math.floor(this.time.now /1000, -2)} seconds`
         this.raceTimer.text =  this.timer
         }
 
-
          this.tileSprite.tilePositionY -= 2;
-
-
-
 
     if(this.cursors.left.isDown){
 
@@ -158,15 +150,10 @@ class MyGame extends Phaser.Scene
 
     }
 
-
-
     if (this.greenCar.y > 565)
     {
         this.greenCar.y = -450;
     }
-
-
-
 
     if (this.truck.y > 765)
     {
@@ -201,7 +188,7 @@ const config = {
         default: 'arcade',
         arcade:{
             gravity: {y: 20},
-            debug: true
+            debug: false
         }
     }
 
